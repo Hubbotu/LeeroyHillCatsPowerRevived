@@ -91,6 +91,10 @@ Zenyatta ultimate - https://www.youtube.com/watch?v=q_WYOaAKbOg
 
 VERSION HISTORY
 
+v8.0 - 24 January 2026
+- Updated to work with the addon changes introduced in the Midnight expansion.
+- Fixed the appearance of the category selection tabs on the bottom of the addon window, so that it no longer looks ugly :-)
+
 v7.0 - 14 January 2023
 - Fixed TabButtonTemplate problem introduced with Dragonflight release. Yeah, it looks a bit ugly, but it works. :-)
 

@@ -16,6 +16,41 @@ function LHCF_AddOptionMT(options, defaults)
 	end
 end
 
+local function LHCF_LayoutTabs(self)
+    -- self is BH_Core
+    local numTabs    = 7          -- we have 7 tabs
+    local tabsPerRow = 4          -- 4 on the first row, rest on second
+
+    -- You can tweak these offsets to adjust the exact positioning
+    local firstRowY  =  -12       -- distance from bottom of frame for row 1
+    local secondRowY =  -45       -- distance from bottom for row 2
+    local startX     =   45       -- horizontal offset from BOTTOMLEFT for the first tab of each row
+    local spacingX   =  -1       -- space between tabs in the same row (negative because of the art style)
+
+    for i = 1, numTabs do
+        local tab = _G[self:GetName() .. "Tab" .. i]
+        if tab then
+            tab:ClearAllPoints()
+
+            if i == 1 then
+                -- First tab of first row
+                tab:SetPoint("CENTER", self, "BOTTOMLEFT", startX, firstRowY)
+            elseif i <= tabsPerRow then
+                -- Other tabs on first row
+                local prev = _G[self:GetName() .. "Tab" .. (i - 1)]
+                tab:SetPoint("LEFT", prev, "RIGHT", spacingX, 0)
+            elseif i == tabsPerRow + 1 then
+                -- First tab of second row
+                tab:SetPoint("CENTER", self, "BOTTOMLEFT", startX, secondRowY)
+            else
+                -- Other tabs on second row
+                local prev = _G[self:GetName() .. "Tab" .. (i - 1)]
+                tab:SetPoint("LEFT", prev, "RIGHT", spacingX, 0)
+            end
+        end
+    end
+end
+
 function LHCF_SetDefaults()
 	if LHCFSettingsDB == nil then
 		LHCFSettingsDB = {}
@@ -118,7 +153,7 @@ function LHCF_SetDefaults()
 	table.insert(LHCFMaster, {"Run to the center!\n".."|cff007a00Dives effekt","runto","",{"orders the raid to run to the center!","orders | to run to the center!"},"Interface\\AddOns\\LeeroyHillCatsPower\\runto.mp3","runto","targeted","wow",1})
 	table.insert(LHCFMaster, {"Most megvagy, a kurva anyád!\n".."|cff007a00South Park Al Gore effekt","megvagy","",{"has spotted the ManBearPig!"},"Interface\\AddOns\\LeeroyHillCatsPower\\megvagy.mp3","megvagy","normal","tv",3})
 	table.insert(LHCFMaster, {"Indítjuk az órát, emeljük a búrát... MOST!\n".."|cff007a00Telemázli effekt","inditjuk","",{"starts the clock."},"Interface\\AddOns\\LeeroyHillCatsPower\\inditjuk.mp3","inditjuk","normal","tv",2})
-	table.insert(LHCFMaster, {"","neverdie","",{"never dies!"},"Interface\\AddOns\\LeeroyHillCatsPower\\neverdie.mp3","","normal","hidden",6})
+	table.insert(LHCFMaster, {"","neverdie","",{"is a hero. Heroes never die!"},"Interface\\AddOns\\LeeroyHillCatsPower\\neverdie.mp3","","normal","hidden",6})
 	table.insert(LHCFMaster, {"Batman theme","batman","",{"is happy to see Batman."},"Interface\\AddOns\\LeeroyHillCatsPower\\batman.mp3","batman","normal","music",11})
 	table.insert(LHCFMaster, {"Ben Brode laugh\n".."|cff007a00Ben Brode effekt","brodelol","",{"thinks Ben Brode is somewhere around here."},"Interface\\AddOns\\LeeroyHillCatsPower\\brodelol.mp3","brodelol","normal","misc",3})
 	table.insert(LHCFMaster, {"Get to the chopper!\n".."|cff007a00Predator effekt","chopper","",{"gives the order to evacuate on the chopper."},"Interface\\AddOns\\LeeroyHillCatsPower\\chopper.mp3","chopper","normal","tv",5})
@@ -269,10 +304,21 @@ self:RegisterEvent("PLAYER_DEAD");
 self:RegisterEvent("UNIT_SPELLCAST_CHANNEL_START");
 self:RegisterEvent("PLAYER_ALIVE");
 self:RegisterEvent("PLAYER_ENTERING_WORLD");
+self:RegisterEvent("PLAYER_UNGHOST");
+--[[ Nope this part has been intentionally broken by Blizzard in patch 12.0.0 :-(
 self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
+--]]
 tinsert(UISpecialFrames,"BH_Core");
 
 items = {}
+
+-- Set up tabs
+PanelTemplates_SetNumTabs(self, 7);
+PanelTemplates_SetTab(self, 1);
+
+-- *** NEW: force our own 2-row layout ***
+LHCF_LayoutTabs(self)
+
 end
 
 function LHCF_SettingsFrameTexts()
@@ -657,7 +703,7 @@ function BH_OnEvent(self, event, ...)
 
 	if (event == "PLAYER_DEAD") then
 		iswilhelm = random(1, 100);
-		if (iswilhelm <= 10) then
+		if (iswilhelm <= 20) then
 			whichdead = random(1, 100)
 			if LHCFSettingsDB.LHCFSpecialEffects.wilhelm[2] then
 				if whichdead <= 50 then PlaySoundFile("Interface\\AddOns\\LeeroyHillCatsPower\\wilhelm.mp3", "master");
@@ -667,15 +713,16 @@ function BH_OnEvent(self, event, ...)
 		end
 	end
 
-	if (event == "PLAYER_ALIVE") then
+	if (event == "PLAYER_ALIVE") or (event == "PLAYER_UNGHOST") then
 		if (time() >= LHCFNoMercy) then
 			doheroesdie = random(1, 100);
-			if (doheroesdie <= 50) then
-				SendChatMessage("never dies!", "EMOTE");
+			if (doheroesdie <= 25) then
+				SendChatMessage("is a hero. Heroes never die!", "EMOTE");
 			end
 		end
 	end
 
+--[[ Nope this part has been intentionally broken by Blizzard in patch 12.0.0 :-(
 	if GetNumGroupMembers() > 0 and event == "COMBAT_LOG_EVENT_UNFILTERED" then
 		local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17 = CombatLogGetCurrentEventInfo()
 		if arg2=="SPELL_CREATE" and arg5 and UnitInRaid(arg5) then
@@ -686,6 +733,7 @@ function BH_OnEvent(self, event, ...)
 			end
 		end
 	end
+--]]
 	
 	if (event == "CHAT_MSG_EMOTE") then
 	uzenet, kimondta = ...

@@ -89,6 +89,10 @@ Zenyatta ultimate - https://www.youtube.com/watch?v=q_WYOaAKbOg
 
 VERSION HISTORY
 
+v8.0 - 2026. 01. 24.
+- Updatelve a Midnight kiegben bevezetett addon változásokhoz.
+- Javítva az addon ablak alján a kategória választó fülek megjelenítése, hogy ne legyen olyan csúnya. :-)
+
 v7.0 - 2023. 01. 14.
 - Javítva a Dragonflight megjelenésével felbukkant TabButtonTemplate hiba. Most már műxik, bár egy kicsit csúnya... :-)
 
