@@ -58,7 +58,7 @@ function LHCF_SetDefaults()
 		LHCFSettingsDB.imadjuk = {}
 	end
 	LHCFTabs = {"fav", "oow", "wow", "games", "tv", "music", "misc"}
-	LHCFSpecialEffects = {"shepard","wilhelm","neverdie","tranq"}
+	LHCFSpecialEffects = {"shepard","wilhelm","neverdie"}
 	
 	LHCFDefaultSettings = {
 		["LHCFLanguage"] = "not set",
@@ -71,8 +71,8 @@ function LHCF_SetDefaults()
 		["LHCFSpecialEffects"] = {
 			["shepard"] = {"Shepard", true},
 			["wilhelm"] = {"Wilhelm", true},
-			["neverdie"] = {"Mercy", true},
-			["tranq"] = {"Tranquility", true}
+			["neverdie"] = {"Mercy", true}
+--			["tranq"] = {"Tranquility", true}
 			},
 		["utaljuk"] = {},
 		["imadjuk"] = {}
@@ -301,12 +301,12 @@ self:RegisterEvent("ADDON_LOADED");
 self:RegisterEvent("CHAT_MSG_EMOTE");
 self:RegisterEvent("MERCHANT_SHOW");
 self:RegisterEvent("PLAYER_DEAD");
-self:RegisterEvent("UNIT_SPELLCAST_CHANNEL_START");
 self:RegisterEvent("PLAYER_ALIVE");
 self:RegisterEvent("PLAYER_ENTERING_WORLD");
 self:RegisterEvent("PLAYER_UNGHOST");
 --[[ Nope this part has been intentionally broken by Blizzard in patch 12.0.0 :-(
 self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
+self:RegisterEvent("UNIT_SPELLCAST_CHANNEL_START");
 --]]
 tinsert(UISpecialFrames,"BH_Core");
 
@@ -454,7 +454,7 @@ function LHCF_SettingsBuilder()
 	LHCF_SettingsFrameCheckshepard:SetPoint("TOPLEFT", SettingsSpecEffects, "BOTTOMLEFT", 0, -10)
 	LHCF_SettingsFrameCheckwilhelm:SetPoint("TOPLEFT", LHCF_SettingsFrameCheckshepard, "TOPRIGHT", 70, 0)
 	LHCF_SettingsFrameCheckneverdie:SetPoint("TOPLEFT", LHCF_SettingsFrameCheckwilhelm, "TOPRIGHT", 70, 0)
-	LHCF_SettingsFrameChecktranq:SetPoint("TOPLEFT", LHCF_SettingsFrameCheckneverdie, "TOPRIGHT", 70, 0)
+--	LHCF_SettingsFrameChecktranq:SetPoint("TOPLEFT", LHCF_SettingsFrameCheckneverdie, "TOPRIGHT", 70, 0)
 end
 
 function LHCF_SetOptions()
@@ -684,11 +684,13 @@ function BH_OnEvent(self, event, ...)
 		isHighNoon = false
 	end
 
+--[[ Nope this part has been intentionally broken by Blizzard in patch 12.0.0 :-(
 	if event == "UNIT_SPELLCAST_CHANNEL_START" then
 		if select(3, ...) == 740 then
 			if LHCFSettingsDB.LHCFSpecialEffects.tranq[2] then PlaySoundFile("Interface\\AddOns\\LeeroyHillCatsPower\\tranq.mp3", "master"); end
 		end
 	end
+--]]
 	
 	if event == "PLAYER_ENTERING_WORLD" then
 		LHCFNoMercy = time() + 60;
