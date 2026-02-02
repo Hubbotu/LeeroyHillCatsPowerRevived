@@ -49,5 +49,29 @@
 		LHCFLocalization["neverdie"] = "If this button is checked, then sometimes when your character is offered to be resurrected by another player, someone can be heard yelling HEROES NEVER DIE! from the Overwatch universe, due to a strange space-time continuum anomaly."
 		LHCFLocalization["tranq"] = "If this button is checked, then whenever someone near you casts Tranquility, someone can be heard saying Experience Tranquility! from the Overwatch universe, due to a strange space-time continuum anomaly."
 	end
+	if lang =="ruRU" then
+		-- Translator ZamestoTV
+        LHCFLocalization["LHCF_CORE_TITLE"] = "Имба звуковой аддон клана OOW"
+        LHCFLocalization["LHCF_HELP_TITLE"] = "|cffff9933" .. "ПОМОЩЬ"
+        LHCFLocalization["LHCF_SETTINGS_TITLE"] = "|cffff9933" .. "НАСТРОЙКИ"
+        LHCFLocalization["LHCF_HELP_TEXT"] = "|cffff9933" .. "Справка по имба-звуковому аддону OOW:\n |cffffff00/lhcf|cffff9933 — открыть синее окно\n |cffffff00/lhcf help|cffff9933 — показать эту справку\n |cffffff00/lhcf <цвет>|cffff9933 — открыть окно с цветом <цвет>\n <цвет> может быть: черный, синий, розовый, красный, зеленый, желтый, белый\n |cffffff00/lhcf <эффект>|cffff9933 — проиграть <эффект>\n <эффект> может быть: bennyhill, leeroy, thuncat, power, fifty, handle, hithard, hitit, moredots1, moredots2, runto, hullak, hshot, flawless, puska, godlike, killingspree, monsterkill, rampage, ultrakill, unstoppable, xkill, badpull, matrix, sgodlike, hsit, elkurtuk, nem, mkay, ufo, vissza, gomba, persze, hatszel, idiota, jonarez, korhaz, lehugyoza, murloc, nicedress, pokmalac, trollololol, badget, boldog, fckbliz, ikillyou, kenny, keycat, olj, prepared, rabbids, rickastley, rouges, swedishmeal, szokecigany, ticktack, matrix, sgodlike, unstoppable, xkill, megvagy, inditjuk"
+        LHCFLocalization["LHCF_HELP_TEXT_PG2"] = "|cffff9933 batman, chopper, cookie, dontetlen, illusion, leviosa, niceday, notright, nyugodjanak, rightround, squish, konodio, roadroll, brodelol, falcon, touchy, over9000, doomed, skovald, fussatok, knock, heisenberg, curb, ezvan, lotr, science"
+        LHCFLocalization["LHCF_DROPDOWN_HATED"] = "Это я ненавижу"
+        LHCFLocalization["LHCF_DROPDOWN_FAV"] = "Любимый"
+        LHCFLocalization["LHCF_SETTINGS_LANG"] = "Язык аддона:"
+        LHCFLocalization["LHCF_SETTINGS_COLOR"] = "Цвет фона главного окна аддона:"
+        LHCFLocalization["black"] = "Чёрный"
+        LHCFLocalization["blue"] = "Синий"
+        LHCFLocalization["pink"] = "Розовый"
+        LHCFLocalization["red"] = "Красный"
+        LHCFLocalization["green"] = "Зелёный"
+        LHCFLocalization["yellow"] = "Жёлтый"
+        LHCFLocalization["white"] = "Белый"
+        LHCFLocalization["LHCF_SETTINGS_SPEC"] = "Спецэффекты:"
+        LHCFLocalization["shepard"] = "Если галочка стоит, то иногда при открытии торговца в мире Commander Shepard заявит, что это его любимый продавец."
+        LHCFLocalization["wilhelm"] = "Если галочка стоит, то иногда при смерти персонажа будет играть либо Wilhelm Scream, либо звук смерти из Dark Souls."
+        LHCFLocalization["neverdie"] = "Если галочка стоит, то иногда при попытке другого игрока воскресить вашего персонажа из-за странной аномалии пространства-времени из вселенной Overwatch донесётся: HEROES NEVER DIE!"
+        LHCFLocalization["tranq"] = "Если галочка стоит, то когда кто-то рядом использует Tranquility, из-за странной аномалии пространства-времени из вселенной Overwatch донесётся: Experience Tranquility!"
+	end	
 	return LHCFLocalization
 end
